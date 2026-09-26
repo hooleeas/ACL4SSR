@@ -1,0 +1,193 @@
+[custom]
+
+; =======================================================
+; CF-SUB Minimal Routing Configuration
+;
+; Routing Logic:
+; 1. Overseas Services → 🚀 Node Select
+; 2. Mainland China → 🇨🇳 China Direct
+; 3. Advertisements → 🆎 Ad Block
+; 4. Unmatched Traffic → 🛟 Fallback
+;
+; Node Testing:
+; Automatic URLTest is disabled.
+; Use the ⚡ manual latency test provided by the client.
+;
+; Compatible with:
+; Clash / Clash Meta / Mihomo / sing-box
+;
+; Not Used:
+; process_name
+; process_path
+; url-test
+; =======================================================
+
+
+; =======================================================
+; 🌍 Overseas Services / Proxy Rules
+; =======================================================
+
+; Telegram
+ruleset=🚀 Node Select,https://raw.githubusercontent.com/hooleeas/ACL4SSR/master/Clash/Telegram.list
+
+; Overseas Proxy Rules
+ruleset=🚀 Node Select,https://raw.githubusercontent.com/hooleeas/ACL4SSR/master/Clash/ProxyGFWlist.list
+
+; Lightweight Overseas Proxy Rules
+ruleset=🚀 Node Select,https://raw.githubusercontent.com/hooleeas/ACL4SSR/master/Clash/ProxyLite.list
+
+
+; =======================================================
+; 🤖 AI Services
+; =======================================================
+
+ruleset=🚀 Node Select,https://raw.githubusercontent.com/hooleeas/ACL4SSR/master/Clash/Ruleset/AI.list
+
+ruleset=🚀 Node Select,https://raw.githubusercontent.com/hooleeas/ACL4SSR/master/Clash/Ruleset/OpenAi.list
+
+
+; =======================================================
+; 🌐 Google
+; =======================================================
+
+ruleset=🚀 Node Select,https://raw.githubusercontent.com/hooleeas/ACL4SSR/master/Clash/Ruleset/GoogleFCM.list
+
+
+; =======================================================
+; 🪟 Microsoft
+; =======================================================
+
+; Bing
+ruleset=🚀 Node Select,https://raw.githubusercontent.com/hooleeas/ACL4SSR/master/Clash/Bing.list
+
+; Microsoft / OneDrive / SharePoint
+ruleset=🚀 Node Select,https://raw.githubusercontent.com/hooleeas/ACL4SSR/master/Clash/Microsoft.list
+
+
+; =======================================================
+; 🍎 Apple
+; =======================================================
+
+ruleset=🚀 Node Select,https://raw.githubusercontent.com/hooleeas/ACL4SSR/master/Clash/Apple.list
+
+
+; =======================================================
+; 📺 Overseas Video Services
+; =======================================================
+
+; YouTube
+ruleset=🚀 Node Select,https://raw.githubusercontent.com/hooleeas/ACL4SSR/master/Clash/Ruleset/YouTube.list
+
+; Netflix
+ruleset=🚀 Node Select,https://raw.githubusercontent.com/hooleeas/ACL4SSR/master/Clash/Ruleset/Netflix.list
+
+; Bahamut
+ruleset=🚀 Node Select,https://raw.githubusercontent.com/hooleeas/ACL4SSR/master/Clash/Ruleset/Bahamut.list
+
+
+; =======================================================
+; 🎮 Overseas Gaming Services
+; =======================================================
+
+; Epic Games
+ruleset=🚀 Node Select,https://raw.githubusercontent.com/hooleeas/ACL4SSR/master/Clash/Ruleset/Epic.list
+
+; EA / Origin
+ruleset=🚀 Node Select,https://raw.githubusercontent.com/hooleeas/ACL4SSR/master/Clash/Ruleset/Origin.list
+
+; Sony / PlayStation
+ruleset=🚀 Node Select,https://raw.githubusercontent.com/hooleeas/ACL4SSR/master/Clash/Ruleset/Sony.list
+
+; Steam
+ruleset=🚀 Node Select,https://raw.githubusercontent.com/hooleeas/ACL4SSR/master/Clash/Ruleset/Steam.list
+
+; Nintendo
+ruleset=🚀 Node Select,https://raw.githubusercontent.com/hooleeas/ACL4SSR/master/Clash/Ruleset/Nintendo.list
+
+
+; =======================================================
+; 🇨🇳 Mainland China Direct
+; =======================================================
+
+; Custom Mainland China Domain
+ruleset=🇨🇳 China Direct,[]DOMAIN-SUFFIX,pomo.mom
+
+; Mainland China Domains
+ruleset=🇨🇳 China Direct,https://raw.githubusercontent.com/hooleeas/ACL4SSR/master/Clash/ChinaDomain.list
+
+; Mainland China Company IPs
+ruleset=🇨🇳 China Direct,https://raw.githubusercontent.com/hooleeas/ACL4SSR/master/Clash/ChinaCompanyIp.list
+
+; Mainland China IPs
+ruleset=🇨🇳 China Direct,[]GEOIP,CN
+
+
+; =======================================================
+; 🆎 Advertisement Blocking
+; =======================================================
+
+; General Web Advertisements
+ruleset=🆎 Ad Block,https://raw.githubusercontent.com/hooleeas/ACL4SSR/master/Clash/BanAD.list
+
+; App / Software / Splash Screen Advertisements
+ruleset=🆎 Ad Block,https://raw.githubusercontent.com/hooleeas/ACL4SSR/master/Clash/BanProgramAD.list
+
+; EasyList General Advertisements
+ruleset=🆎 Ad Block,https://raw.githubusercontent.com/hooleeas/ACL4SSR/master/Clash/BanEasyList.list
+
+; EasyList China Advertisements
+ruleset=🆎 Ad Block,https://raw.githubusercontent.com/hooleeas/ACL4SSR/master/Clash/BanEasyListChina.list
+
+
+; =======================================================
+; 🛟 Fallback
+; =======================================================
+
+; All unmatched traffic goes to the fallback policy
+ruleset=🛟 Fallback,[]FINAL
+
+
+; =======================================================
+; 🚀 Node Select
+;
+; Manual node selection only
+; No automatic selection
+; No URLTest
+; =======================================================
+
+custom_proxy_group=🚀 Node Select`select`.*
+
+
+; =======================================================
+; 🇨🇳 China Direct
+;
+; Force DIRECT
+; =======================================================
+
+custom_proxy_group=🇨🇳 China Direct`select`[]DIRECT
+
+
+; =======================================================
+; 🆎 Ad Block
+;
+; Force REJECT
+; =======================================================
+
+custom_proxy_group=🆎 Ad Block`select`[]REJECT
+
+
+; =======================================================
+; 🛟 Fallback
+;
+; DIRECT / Manual Node Selection
+; =======================================================
+
+custom_proxy_group=🛟 Fallback`select`[]DIRECT`[]🚀 Node Select
+
+
+; =======================================================
+; Converter Control
+; =======================================================
+
+enable_rule_generator=true
+overwrite_original_rules=true
